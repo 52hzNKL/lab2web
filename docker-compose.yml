@@ -1,0 +1,31 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: DockerFile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:11032002@db:5432/students
+    depends_on:
+      - db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 11032002
+      POSTGRES_DB: students
+    ports:
+      - "5432:5432"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: DockerFile
+    ports:
+      - "80:80"
+volumes:
+  pgdata:
