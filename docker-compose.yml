@@ -9,8 +9,6 @@ services:
       - DATABASE_URL=postgresql://postgres:11032002@db:5432/students
     depends_on:
       - db
-    volumes:
-      - pgdata:/var/lib/postgresql/backup/data
 
   db:
     image: postgres:13
@@ -20,6 +18,8 @@ services:
       POSTGRES_DB: students
     ports:
       - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   frontend:
     build:
