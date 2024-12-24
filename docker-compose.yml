@@ -19,7 +19,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pgdata:/var/lib/postgresql/data
 
   frontend:
     build:
@@ -29,3 +29,4 @@ services:
       - "80:80"
 volumes:
   pgdata:
+    external: true
